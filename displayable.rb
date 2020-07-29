@@ -49,6 +49,17 @@ module Displayable
     puts
   end
 
+  def turn_counter(turn)
+    puts "\sTurn #{turn}"
+    print "\sMake your guess: "
+  end
+
+  def game_over_win(code)
+    puts "\sCongratulations you cracked the code!"
+    print "\s#{code}\n"
+    exit
+  end
+
   def game_over_lost
     puts "\sYou have run out of guesses."
     puts "\sThe code wasn't cracked."

@@ -8,9 +8,10 @@ class Mastermind
   include Displayable
 
   def initialize
-    @code = CodeMaker.new
+    @code = ''
     @player = CodeBreaker.new
     @turn = 0
+    @game_won = false
   end
 
   def start
@@ -18,7 +19,7 @@ class Mastermind
     game_explanation
     game_instructions
     generating_pattern
-    @code.create_code
+    @code = CodeMaker.new.create_code
     pattern_generated
 
     player_enter
@@ -26,16 +27,17 @@ class Mastermind
 
   def player_enter
     @turn += 1
-    puts "\sTurn #{@turn}"
-    print "\sMake your guess: "
+    turn_counter(@turn)
     guess = gets.chomp
-    result = @player.compare_guess(guess, @code.array)
-    @player.winner(guess, @code.array)
-    next_round(guess, result)
+    @player.compare_guess(guess, @code)
+    @game_won = @player.winner?
+    next_round
   end
 
-  def next_round(guess, result)
-    if @turn < 12
+  def next_round
+    if @turn <= 12 && @game_won == true
+      game_over_win(@code)
+    elsif @turn < 12
       player_enter
     else
       game_over_lost

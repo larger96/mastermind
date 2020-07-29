@@ -38,11 +38,7 @@ class CodeBreaker
     end
   end
 
-  def winner(guess, code)
-    if @feedback == ['X', 'X', 'X', 'X']
-      puts "\sCongratulations! You cracked the code!"
-      p code
-      exit
-    end
+  def winner?
+    @feedback == ['X', 'X', 'X', 'X']
   end
 end

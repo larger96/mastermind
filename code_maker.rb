@@ -11,9 +11,10 @@ class CodeMaker
     4.times do
       @array.push(COLORS[rand(COLORS.length)])
     end
+    @array
   end
 
   def print_code
-    print "#{@array}\n"
+    print "\s#{@array}\n"
   end
 end
