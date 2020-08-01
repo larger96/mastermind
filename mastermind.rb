@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require_relative './code_maker.rb'
 require_relative './code_breaker.rb'
 require_relative './displayable.rb'
 require_relative './game_constants.rb'
 require 'pry'
 
+# Mastermind game
 class Mastermind
   include Displayable
 
@@ -26,15 +29,14 @@ class Mastermind
 
   def choose_game_mode
     @game_mode = gets.chomp
-    if @game_mode == "1"
+    if @game_mode == '1'
       @player = CodeBreaker.new
       comp_code_maker
-    elsif @game_mode == "2"
+    elsif @game_mode == '2'
       @computer = CodeBreaker.new
       player_code_maker
     else
-      puts "\sEnter a valid option"
-      print "\s\s>> "
+      invalid_input
       choose_game_mode
     end
   end
@@ -78,7 +80,7 @@ class Mastermind
     if @turn <= 12 && @game_won == true
       game_over_win(@code)
     elsif @turn < 12
-      if @game_mode == "1"
+      if @game_mode == '1'
         player_guess
       else
         computer_guess
@@ -90,5 +92,4 @@ class Mastermind
 end
 
 new_game = Mastermind.new
-
 new_game.start

@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative './game_constants.rb'
 
+# Text instructions for Mastermind
 module Displayable
   include GameConstants
 
@@ -26,7 +29,7 @@ module Displayable
     puts "\s\s3. Enter your code by inputting a 4 color guess. Example 'rgby'."
     puts "\s\s4. You will recieve feedback after every turn:"
     puts "\t'X' => correct color in the correct position."
-    puts "\t'*' => correct color in the wrong position." 
+    puts "\t'*' => correct color in the wrong position."
     puts "\s\s5. Have fun!"
   end
 
@@ -74,6 +77,11 @@ module Displayable
   def turn_counter(turn)
     puts "\sTurn #{turn}"
     print "\sMake your guess: "
+  end
+
+  def invalid_input
+    puts "\sEnter a valid option"
+    print "\s\s>> "
   end
 
   def game_over_win(code)

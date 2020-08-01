@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require_relative './game_constants.rb'
 
+# Player who creates secret code
 class CodeMaker
   include GameConstants
-  
-  attr_accessor :array
 
-  COLORS = ['r', 'g', 'b', 'y', 'o', 'p']
+  attr_accessor :array
 
   def initialize
     @array = []
@@ -19,7 +20,7 @@ class CodeMaker
   end
 
   def assign_code
-    code = gets.chomp
+    gets.chomp
   end
 
   def print_code

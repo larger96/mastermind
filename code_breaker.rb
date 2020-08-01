@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative './game_constants.rb'
 
+# Player who cracks secret code
 class CodeBreaker
   include GameConstants
 
@@ -8,24 +11,23 @@ class CodeBreaker
   def initialize
     @guess = []
     @feedback = []
-    @correct_chars = ["", "", "", ""]
+    @correct_chars = ['', '', '', '']
     @include_chars = []
+    @i = 0
   end
 
   def make_guess
     @guess = ['', '', '', '']
     add_correct_chars
     fill_empty
-    optimize_guess    
+    optimize_guess
     @guess.join('')
   end
 
   def fill_empty
     i = 0
     @guess.each do |guess|
-      if guess == ''
-        @guess[i] = COLORS[rand(COLORS.length)]
-      end
+      @guess[i] = COLORS[rand(COLORS.length)] if guess == ''
       i += 1
     end
   end
@@ -33,18 +35,14 @@ class CodeBreaker
   def add_correct_chars
     i = 0
     @correct_chars.each do |char|
-      if char != ''
-        @guess[i] = char
-      end
+      @guess[i] = char if char != ''
       i += 1
     end
   end
 
   def optimize_guess
     @include_chars.each do |char|
-      if !@guess.include?(char)
-        make_guess
-      end
+      make_guess unless @guess.include?(char)
     end
   end
 
@@ -53,11 +51,11 @@ class CodeBreaker
     i = 0
     guess.each_char do |color|
       if code.include?(color) && guess[i] == code[i]
-        feedback("cross")
+        feedback('cross')
       elsif code.include?(color)
-        feedback("star")
+        feedback('star')
       else
-        feedback("none")
+        feedback('none')
       end
       i += 1
     end
@@ -71,12 +69,12 @@ class CodeBreaker
     guess.each_char do |color|
       if code.include?(color) && guess[i] == code[i]
         @correct_chars[i] = guess[i]
-        feedback("cross")
+        feedback('cross')
       elsif code.include?(color)
         include_characters(guess[i])
-        feedback("star")
+        feedback('star')
       else
-        feedback("none")
+        feedback('none')
       end
       i += 1
     end
@@ -85,15 +83,13 @@ class CodeBreaker
   end
 
   def include_characters(guess)
-    if !@include_chars.include?(guess)
-      @include_chars.push(guess)
-    end
+    @include_chars.push(guess) unless @include_chars.include?(guess)
   end
 
   def feedback(peg)
-    if peg == "cross"
+    if peg == 'cross'
       @feedback.push('X')
-    elsif peg == "star"
+    elsif peg == 'star'
       @feedback.push('*')
     else
       @feedback.push(' ')
@@ -101,6 +97,6 @@ class CodeBreaker
   end
 
   def winner?
-    @feedback == ['X', 'X', 'X', 'X']
+    @feedback == %w[X X X X]
   end
 end
