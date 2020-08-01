@@ -1,4 +1,8 @@
+require_relative './game_constants.rb'
+
 class CodeMaker
+  include GameConstants
+  
   attr_accessor :array
 
   COLORS = ['r', 'g', 'b', 'y', 'o', 'p']
@@ -12,6 +16,10 @@ class CodeMaker
       @array.push(COLORS[rand(COLORS.length)])
     end
     @array
+  end
+
+  def assign_code
+    code = gets.chomp
   end
 
   def print_code

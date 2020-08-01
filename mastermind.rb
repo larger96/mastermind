@@ -9,8 +9,10 @@ class Mastermind
 
   def initialize
     @code = ''
-    @player = CodeBreaker.new
+    @player = ''
+    @computer = ''
     @turn = 0
+    @game_mode = ''
     @game_won = false
   end
 
@@ -18,14 +20,42 @@ class Mastermind
     title
     game_explanation
     game_instructions
+    game_modes
+    choose_game_mode
+  end
+
+  def choose_game_mode
+    @game_mode = gets.chomp
+    if @game_mode == "1"
+      @player = CodeBreaker.new
+      comp_code_maker
+    elsif @game_mode == "2"
+      @computer = CodeBreaker.new
+      player_code_maker
+    else
+      puts "\sEnter a valid option"
+      print "\s\s>> "
+      choose_game_mode
+    end
+  end
+
+  def comp_code_maker
     generating_pattern
     @code = CodeMaker.new.create_code
     pattern_generated
 
-    player_enter
+    player_guess
   end
 
-  def player_enter
+  def player_code_maker
+    create_your_pattern
+    @code = CodeMaker.new.assign_code
+    pattern_created
+
+    computer_guess
+  end
+
+  def player_guess
     @turn += 1
     turn_counter(@turn)
     guess = gets.chomp
@@ -34,17 +64,31 @@ class Mastermind
     next_round
   end
 
+  def computer_guess
+    @turn += 1
+    turn_counter(@turn)
+    guess = @computer.make_guess
+    puts guess
+    @computer.comp_compare_guess(guess, @code)
+    @game_won = @computer.winner?
+    next_round
+  end
+
   def next_round
     if @turn <= 12 && @game_won == true
       game_over_win(@code)
     elsif @turn < 12
-      player_enter
+      if @game_mode == "1"
+        player_guess
+      else
+        computer_guess
+      end
     else
       game_over_lost
     end
   end
 end
 
-play = Mastermind.new
+new_game = Mastermind.new
 
-play.start
+new_game.start

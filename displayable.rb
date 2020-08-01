@@ -49,6 +49,28 @@ module Displayable
     puts
   end
 
+  def create_your_pattern
+    puts "\n\sCreate your secret 4 color pattern for #{COMPUTERS_NAME} to guess."
+    puts "\sChoose wisely, he has the brain the size of a planet."
+    print "\s\s>> "
+  end
+
+  def pattern_created
+    puts "\sYou have created your pattern."
+    puts "\sLet's begin!"
+    puts
+  end
+
+  def game_modes
+    puts "\n\s#{COMPUTERS_NAME} has given you the choice to either be the CodeBreaker or the CodeMaker."
+    puts "\s('It's not like it matters, you'd do what you want anyway')"
+    puts
+    puts "\sWhat do you choose?"
+    puts "\s\s1) CodeBreaker"
+    puts "\s\s2) CodeMaker"
+    print "\s\s>> "
+  end
+
   def turn_counter(turn)
     puts "\sTurn #{turn}"
     print "\sMake your guess: "
