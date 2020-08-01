@@ -46,8 +46,18 @@ class CodeBreaker
     end
   end
 
-  def compare_guess(guess, code)
+  def compare_guess(guess, code, game_mode)
     @feedback = []
+    if game_mode == 1
+      create_feedback_player(guess, code)
+    else
+      create_feedback_computer(guess, code)
+    end
+    print "\sFeedback: #{@feedback.sort.reverse}\n"
+    puts
+  end
+
+  def create_feedback_player(guess, code)
     i = 0
     guess.each_char do |color|
       if code.include?(color) && guess[i] == code[i]
@@ -59,12 +69,9 @@ class CodeBreaker
       end
       i += 1
     end
-    print "\sFeedback: #{@feedback.sort.reverse}\n"
-    puts
   end
 
-  def comp_compare_guess(guess, code)
-    @feedback = []
+  def create_feedback_computer(guess, code)
     i = 0
     guess.each_char do |color|
       if code.include?(color) && guess[i] == code[i]
@@ -78,8 +85,6 @@ class CodeBreaker
       end
       i += 1
     end
-    print "\sFeedback: #{@feedback.sort.reverse}\n"
-    puts
   end
 
   def include_characters(guess)
